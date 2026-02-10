@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuVite - Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @media print { .no-print { display: none !important; } .print-only { display: block !important; } }
+        .print-only { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div id="page-accueil" class="no-print">
+        <div class="bg-blue-600 p-6 text-white text-center shadow-lg">
+            <h1 class="text-3xl font-black italic">DOCUVITE</h1>
+            <p class="text-xs opacity-80 uppercase tracking-widest mt-1">Tes documents en 2 minutes</p>
+        </div>
+
+        <div class="p-6 max-w-lg mx-auto space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-200">
+                <span class="text-blue-600 font-bold text-xs uppercase">Populaire</span>
+                <h2 class="text-xl font-bold mt-1">Quittance de Loyer</h2>
+                <p class="text-gray-500 text-sm mb-4">Modèle conforme 2026.</p>
+                <button onclick="changer('quittance')" class="w-full py-4 bg-blue-600 text-white rounded-2xl font-black shadow-lg shadow-blue-200">GÉNÉRER (GRATUIT)</button>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl shadow-md border-2 border-orange-400 relative">
+                <div class="absolute -top-3 right-6 bg-orange-500 text-white text-[10px] px-3 py-1 rounded-full font-bold">RECOMMANDÉ</div>
+                <h2 class="text-xl font-bold mt-1">Contrat Vente Occasion</h2>
+                <p class="text-gray-500 text-sm mb-4">Sécurise ta vente Leboncoin / Marketplace.</p>
+                <a href="https://www.google.com" class="block text-center w-full py-4 bg-orange-500 text-white rounded-2xl font-black shadow-lg shadow-orange-200">ACHETER (5,90€)</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="quittance" class="hidden min-h-screen bg-white">
+        <div class="no-print p-6 bg-slate-100 border-b">
+            <button onclick="changer('page-accueil')" class="text-blue-600 font-bold mb-4">← Retour</button>
+            <h2 class="text-lg font-bold mb-4">Remplis les infos :</h2>
+            <div class="space-y-3">
+                <input type="text" id="q-p" oninput="maj()" placeholder="Ton Nom (Proprio)" class="w-full p-4 rounded-xl border-0 shadow-sm">
+                <input type="text" id="q-l" oninput="maj()" placeholder="Nom du Locataire" class="w-full p-4 rounded-xl border-0 shadow-sm">
+                <input type="number" id="q-m" oninput="maj()" placeholder="Montant en Euros" class="w-full p-4 rounded-xl border-0 shadow-sm">
+            </div>
+            <button onclick="window.print()" class="w-full mt-6 bg-green-600 text-white py-4 rounded-2xl font-black">TÉLÉCHARGER PDF</button>
+        </div>
+
+        <div class="p-10 text-slate-900 leading-relaxed">
+            <h1 class="text-2xl font-bold text-center underline uppercase mb-10">Quittance de Loyer</h1>
+            <p>Je soussigné(e), <span id="out-p" class="font-bold border-b">...</span>, déclare avoir reçu de la part de <span id="out-l" class="font-bold border-b">...</span> la somme de <span id="out-m" class="font-bold border-b">0</span> € au titre du loyer.</p>
+            <p class="mt-20">Fait à : ..................... Le : <span id="date"></span></p>
+            <p class="mt-10 text-right italic font-bold">Signature :</p>
+        </div>
+    </div>
+
+    <script>
+        function changer(id) {
+            document.getElementById('page-accueil').classList.add('hidden');
+            document.getElementById('quittance').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function maj() {
+            document.getElementById('out-p').innerText = document.getElementById('q-p').value || '...';
+            document.getElementById('out-l').innerText = document.getElementById('q-l').value || '...';
+            document.getElementById('out-m').innerText = document.getElementById('q-m').value || '0';
+        }
+        document.getElementById('date').innerText = new Date().toLocaleDateString();
+    </script>
+</body>
+</html>
