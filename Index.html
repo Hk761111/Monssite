@@ -3,107 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Quittance Officiel - DocuVite</title>
+    <title>DocuVite - Documents Légaux</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media print { .no-print { display: none; } #papier { border: none; shadow: none; } }
+        @media print { .no-print { display: none !important; } #papier { border: none !important; margin: 0 !important; padding: 0 !important; } }
+        .hidden { display: none; }
     </style>
 </head>
-<body class="bg-gray-100 p-4">
+<body class="bg-gray-100 font-sans">
 
-    <div class="max-w-4xl mx-auto no-print bg-white p-6 rounded-xl shadow-lg mb-8">
-        <h2 class="text-xl font-bold mb-4 text-blue-600">Remplissez les informations obligatoires</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label class="block text-xs font-bold text-gray-500 uppercase">Propriétaire (Nom & Adresse)</label>
-                <textarea id="proprio" oninput="maj()" class="w-full p-2 border rounded text-sm" rows="3" placeholder="M. Jean Dupont&#10;12 rue de la Paix&#10;75001 Paris"></textarea>
+    <div id="accueil" class="no-print min-h-screen">
+        <header class="bg-blue-600 text-white py-10 text-center shadow-lg">
+            <h1 class="text-4xl font-black italic tracking-tighter">DOCUVITE</h1>
+            <p class="mt-2 text-blue-100">Tes documents en 2 minutes</p>
+        </header>
+
+        <main class="max-w-4xl mx-auto p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-blue-500">
+                    <div class="p-6">
+                        <span class="text-blue-500 font-bold text-xs uppercase tracking-widest">Populaire</span>
+                        <h2 class="text-2xl font-bold mt-2">Quittance de Loyer</h2>
+                        <p class="text-gray-500 mt-2 text-sm">Modèle conforme Loi Alur 2026. Gratuit et illimité.</p>
+                        <button onclick="ouvrirQuittance()" class="mt-6 w-full py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg hover:bg-blue-700 transition">GÉNÉRER (GRATUIT)</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-orange-500 scale-105 border-2 border-orange-200">
+                    <div class="p-6">
+                        <span class="text-orange-500 font-bold text-xs uppercase tracking-widest italic">Recommandé</span>
+                        <h2 class="text-2xl font-bold mt-2">Contrat Vente Occasion</h2>
+                        <p class="text-gray-500 mt-2 text-sm">Sécurise ta vente Leboncoin / Marketplace. Professionnel.</p>
+                        <a href="https://buy.stripe.com/00w3cv7uifeNfiX4n8enS00" class="mt-6 block text-center w-full py-4 bg-orange-500 text-white rounded-xl font-bold shadow-lg hover:bg-orange-600 transition">ACHETER (5,90€)</a>
+                    </div>
+                </div>
+
             </div>
-            <div>
-                <label class="block text-xs font-bold text-gray-500 uppercase">Locataire (Nom & Adresse)</label>
-                <textarea id="locataire" oninput="maj()" class="w-full p-2 border rounded text-sm" rows="3" placeholder="Mme. Alice Martin&#10;45 Avenue Foch&#10;75016 Paris"></textarea>
-            </div>
-            <input type="text" id="periode" oninput="maj()" placeholder="Période (ex: Janvier 2024)" class="p-2 border rounded text-sm">
-            <input type="number" id="loyer" oninput="maj()" placeholder="Loyer Hors Charges (€)" class="p-2 border rounded text-sm">
-            <input type="number" id="charges" oninput="maj()" placeholder="Charges (€)" class="p-2 border rounded text-sm">
-            <input type="text" id="bien" oninput="maj()" placeholder="Adresse du bien loué" class="p-2 border rounded text-sm">
-        </div>
-        <button onclick="window.print()" class="w-full mt-6 bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">IMPRIMER LA QUITTANCE (PDF)</button>
-        
-        <a href="https://buy.stripe.com/00w3cv7uifeNfiX4n8enS00" class="block text-center mt-4 text-blue-500 underline text-sm">Besoin d'un Contrat de Vente ? Cliquez ici (5,90€)</a>
+        </main>
     </div>
 
-    <div id="papier" class="max-w-4xl mx-auto bg-white p-12 shadow-sm border border-gray-200">
-        <div class="flex justify-between mb-10">
-            <div>
-                <p class="font-bold text-gray-800">BAILLEUR :</p>
-                <p id="out-proprio" class="whitespace-pre-line text-sm text-gray-600">__________</p>
+    <div id="generateur" class="hidden min-h-screen p-4">
+        <button onclick="retourAccueil()" class="no-print mb-4 text-blue-600 font-bold">← Retour</button>
+        
+        <div class="max-w-4xl mx-auto no-print bg-white p-6 rounded-xl shadow-lg mb-8">
+            <h2 class="text-xl font-bold mb-4">Infos de la Quittance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <textarea id="proprio" oninput="maj()" class="p-2 border rounded" placeholder="Propriétaire : Nom et Adresse"></textarea>
+                <textarea id="locataire" oninput="maj()" class="p-2 border rounded" placeholder="Locataire : Nom et Adresse"></textarea>
+                <input type="text" id="periode" oninput="maj()" placeholder="Période (ex: Mars 2026)" class="p-2 border rounded">
+                <input type="text" id="bien" oninput="maj()" placeholder="Adresse du bien loué" class="p-2 border rounded">
+                <input type="number" id="loyer" oninput="maj()" placeholder="Loyer HC (€)" class="p-2 border rounded">
+                <input type="number" id="charges" oninput="maj()" placeholder="Charges (€)" class="p-2 border rounded">
             </div>
-            <div class="text-right">
-                <p class="font-bold text-gray-800">LOCATAIRE :</p>
-                <p id="out-locataire" class="whitespace-pre-line text-sm text-gray-600">__________</p>
-            </div>
+            <button onclick="window.print()" class="w-full mt-6 bg-green-600 text-white py-4 rounded-xl font-bold">TÉLÉCHARGER PDF</button>
         </div>
 
-        <h1 class="text-2xl font-bold text-center border-y-2 border-black py-2 mb-10">QUITTANCE DE LOYER</h1>
-
-        <p class="mb-6 italic">Reçu de M./Mme <span id="out-locataire-nom" class="font-bold">__________</span>, la somme de 
-        <span id="out-total" class="font-bold text-lg">0.00</span> euros, pour le loyer et les charges du logement situé au 
-        <span id="out-bien" class="font-bold">__________</span>, pour la période du mois de <span id="out-periode" class="font-bold underline">__________</span>.</p>
-
-        <table class="w-full mb-10 border-collapse">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th class="border p-2 text-left">Détail</th>
-                    <th class="border p-2 text-right">Montant</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="border p-2">Loyer net hors charges</td>
-                    <td id="out-loyer" class="border p-2 text-right">0.00 €</td>
-                </tr>
-                <tr>
-                    <td class="border p-2">Provisions pour charges</td>
-                    <td id="out-charges" class="border p-2 text-right">0.00 €</td>
-                </tr>
-                <tr class="font-bold">
-                    <td class="border p-2 bg-gray-50">TOTAL REÇU</td>
-                    <td id="out-total-tableau" class="border p-2 text-right bg-gray-50">0.00 €</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <p class="text-sm mb-10 text-justify">
-            Cette quittance libère le locataire de son paiement pour la période indiquée. Elle ne peut en aucun cas servir de certificat d'hébergement si elle n'est pas accompagnée d'une facture de service (EDF, Eau).
-        </p>
-
-        <div class="flex justify-end">
-            <div class="text-center">
-                <p class="mb-4">Fait à <span class="font-bold">__________</span>, le <span id="date-jour"></span></p>
-                <p class="text-gray-400 italic">Signature du Bailleur</p>
-                <div class="h-20"></div>
+        <div id="papier" class="max-w-3xl mx-auto bg-white p-12 shadow-sm border border-gray-200">
+            <div class="flex justify-between mb-8 text-sm">
+                <div><p class="font-bold">BAILLEUR :</p><p id="out-proprio" class="whitespace-pre-line text-gray-600">__________</p></div>
+                <div class="text-right"><p class="font-bold">LOCATAIRE :</p><p id="out-locataire" class="whitespace-pre-line text-gray-600">__________</p></div>
             </div>
+            <h1 class="text-2xl font-bold text-center border-y-2 border-black py-2 mb-8">QUITTANCE DE LOYER</h1>
+            <p class="mb-6 italic">Reçu de la somme de <span id="out-total" class="font-bold">0.00</span> € pour le loyer du bien situé au <span id="out-bien" class="font-bold">__________</span>, période de <span id="out-periode" class="font-bold">__________</span>.</p>
+            <table class="w-full border-collapse mb-8 text-sm">
+                <tr class="bg-gray-100 font-bold border"><td class="p-2">Loyer HC</td><td id="out-loyer" class="p-2 text-right">0.00 €</td></tr>
+                <tr class="border"><td class="p-2">Charges</td><td id="out-charges" class="p-2 text-right">0.00 €</td></tr>
+                <tr class="bg-gray-200 font-bold border text-lg"><td class="p-2">TOTAL</td><td id="out-total-tab" class="p-2 text-right">0.00 €</td></tr>
+            </table>
+            <p class="text-[10px] text-gray-500">Cette quittance libère le locataire de son paiement pour la période indiquée.</p>
         </div>
     </div>
 
     <script>
+        function ouvrirQuittance() {
+            document.getElementById('accueil').classList.add('hidden');
+            document.getElementById('generateur').classList.remove('hidden');
+        }
+        function retourAccueil() {
+            document.getElementById('generateur').classList.add('hidden');
+            document.getElementById('accueil').classList.remove('hidden');
+        }
         function maj() {
             const l = parseFloat(document.getElementById('loyer').value) || 0;
             const c = parseFloat(document.getElementById('charges').value) || 0;
             const total = l + c;
-
             document.getElementById('out-proprio').innerText = document.getElementById('proprio').value || '__________';
             document.getElementById('out-locataire').innerText = document.getElementById('locataire').value || '__________';
-            document.getElementById('out-locataire-nom').innerText = document.getElementById('locataire').value.split('\n')[0] || '__________';
             document.getElementById('out-periode').innerText = document.getElementById('periode').value || '__________';
             document.getElementById('out-bien').innerText = document.getElementById('bien').value || '__________';
             document.getElementById('out-loyer').innerText = l.toFixed(2) + ' €';
             document.getElementById('out-charges').innerText = c.toFixed(2) + ' €';
             document.getElementById('out-total').innerText = total.toFixed(2);
-            document.getElementById('out-total-tableau').innerText = total.toFixed(2) + ' €';
+            document.getElementById('out-total-tab').innerText = total.toFixed(2) + ' €';
         }
-        document.getElementById('date-jour').innerText = new Date().toLocaleDateString('fr-FR');
     </script>
 </body>
 </html>
-
