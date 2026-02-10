@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        @media print { .no-print { display: none !important; } }
+        @media print { .no-print { display: none !important; } #papier, #papier-attest { display: block !important; border: none !important; } }
         .hidden { display: none; }
     </style>
 </head>
@@ -19,42 +19,99 @@
         <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Service Certifié 2026</div>
     </nav>
 
-    <main class="flex-grow max-w-6xl mx-auto py-12 px-4">
-        <div id="accueil" class="no-print">
+    <main class="flex-grow">
+        <div id="accueil" class="no-print max-w-6xl mx-auto py-12 px-4">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-slate-800 italic uppercase tracking-tighter">Vos documents en 2 minutes</h2>
-                <p class="text-slate-500 mt-2 font-medium italic">Simple. Rapide. Conforme.</p>
+                <p class="text-slate-500 mt-2 font-medium">Simple. Rapide. Conforme.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <div class="text-3xl mb-4">🏠</div>
-                    <h3 class="font-bold uppercase italic tracking-tighter">Quittance de Loyer</h3>
-                    <p class="text-slate-500 mt-2 text-xs italic italic">Modèle Loi Alur gratuit.</p>
-                    <button onclick="alert('Remplissez les infos en bas')" class="mt-4 text-blue-600 font-bold text-xs uppercase tracking-widest italic">Générer gratuitement →</button>
+                <div onclick="afficherSection('section-quittance')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-500 transition cursor-pointer group">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🏠</div>
+                    <h3 class="text-lg font-bold uppercase tracking-tighter italic">Quittance de Loyer</h3>
+                    <p class="text-slate-500 mt-2 text-xs italic">Modèle gratuit Loi Alur.</p>
+                    <div class="mt-4 text-blue-600 font-bold text-xs uppercase italic tracking-widest">Générer →</div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <div class="text-3xl mb-4">📄</div>
-                    <h3 class="font-bold uppercase italic tracking-tighter">Attestation d'Hébergement</h3>
-                    <p class="text-slate-500 mt-2 text-xs italic italic">Indispensable pour vos démarches.</p>
-                    <button class="mt-4 text-blue-600 font-bold text-xs uppercase tracking-widest italic">Générer gratuitement →</button>
+                <div onclick="afficherSection('section-attestation')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-500 transition cursor-pointer group">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">📄</div>
+                    <h3 class="text-lg font-bold uppercase tracking-tighter italic">Attestation d'Hébergement</h3>
+                    <p class="text-slate-500 mt-2 text-xs italic">Indispensable pour vos démarches.</p>
+                    <div class="mt-4 text-blue-600 font-bold text-xs uppercase italic tracking-widest">Générer →</div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-t-orange-500 border-x border-b border-slate-200">
+                <a href="preview.html" class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-t-orange-500 border-x border-b border-slate-200 hover:shadow-lg transition">
                     <div class="text-3xl mb-4">✍️</div>
-                    <h3 class="font-bold uppercase italic tracking-tighter">Contrat de Vente</h3>
-                    <p class="text-slate-500 mt-2 text-xs italic italic italic">Sécurisez votre vente (véhicule, meubles...).</p>
-                    <a href="preview.html" class="mt-4 block text-center bg-slate-900 text-white py-3 rounded-xl font-bold text-sm uppercase italic">Voir le modèle (4,90€)</a>
+                    <h3 class="text-lg font-bold uppercase tracking-tighter italic">Contrat de Vente</h3>
+                    <p class="text-slate-500 mt-2 text-xs italic">Véhicules, Meubles, Objets.</p>
+                    <div class="mt-4 text-orange-600 font-bold text-xs uppercase italic tracking-widest underline">Accéder au modèle (4,90€)</div>
+                </a>
+            </div>
+        </div>
+
+        <div id="section-quittance" class="hidden no-print max-w-4xl mx-auto py-8 px-4">
+            <button onclick="window.location.reload()" class="mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
+            <div class="bg-white p-8 rounded-3xl shadow-xl border mb-6">
+                <h2 class="text-xl font-bold mb-6 italic uppercase">Infos Quittance</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <input type="text" id="q_proprio" oninput="majQ()" placeholder="Nom du Propriétaire" class="p-4 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
+                    <input type="text" id="q_locataire" oninput="majQ()" placeholder="Nom du Locataire" class="p-4 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
+                    <input type="text" id="q_mois" oninput="majQ()" placeholder="Mois (ex: Janvier 2026)" class="p-4 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
+                    <input type="number" id="q_montant" oninput="majQ()" placeholder="Montant Total (€)" class="p-4 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                 </div>
+                <button onclick="window.print()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold uppercase">Imprimer la Quittance</button>
+            </div>
+            <div id="papier" class="bg-white p-12 border shadow-inner text-slate-800 italic">
+                <h2 class="text-center text-xl font-black underline uppercase mb-8">Quittance de Loyer</h2>
+                <p>Je soussigné <strong><span id="out_q_p">__________</span></strong>, propriétaire, certifie avoir reçu de <strong>M./Mme <span id="out_q_l">__________</span></strong>, la somme de <strong><span id="out_q_m">0</span> €</strong> pour le loyer du mois de <strong><span id="out_q_mo">__________</span></strong>.</p>
+                <p class="mt-12 text-[8px] text-slate-400 italic">© DocuVite - Modèle standard, pas un conseil juridique.</p>
+            </div>
+        </div>
+
+        <div id="section-attestation" class="hidden no-print max-w-4xl mx-auto py-8 px-4">
+            <button onclick="window.location.reload()" class="mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
+            <div class="bg-white p-8 rounded-3xl shadow-xl border mb-6">
+                <h2 class="text-xl font-bold mb-6 italic uppercase">Infos Attestation</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <input type="text" id="a_hebergeur" oninput="majA()" placeholder="Votre Nom et Prénom" class="p-4 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
+                    <input type="text" id="a_heberge" oninput="majA()" placeholder="Nom de l'hébergé" class="p-4 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
+                </div>
+                <button onclick="window.print()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold uppercase">Imprimer l'Attestation</button>
+            </div>
+            <div id="papier-attest" class="bg-white p-12 border shadow-inner text-slate-800 italic">
+                <h2 class="text-center text-xl font-black underline uppercase mb-8">Attestation d'Hébergement</h2>
+                <p>Je soussigné <strong><span id="out_a_hr">__________</span></strong>, certifie sur l'honneur que <strong>M./Mme <span id="out_a_he">__________</span></strong> est hébergé(e) à mon domicile à titre gratuit.</p>
+                <p class="mt-12 text-[8px] text-slate-400 italic">© DocuVite - Modèle standard, pas un conseil juridique.</p>
             </div>
         </div>
     </main>
 
-    <footer class="no-print py-10 bg-white border-t border-slate-100 text-center">
-        <a href="mentions.html" class="text-[10px] font-bold text-slate-400 hover:text-blue-600 uppercase tracking-widest italic underline">Mentions Légales & CGV</a>
-        <p class="text-[9px] text-slate-300 mt-2 italic">© 2026 DocuVite - Modèle standard, pas un conseil juridique.</p>
+    <footer class="no-print py-10 text-center opacity-40">
+        <a href="mentions.html" class="text-[10px] font-bold uppercase underline">Mentions Légales & CGV</a>
     </footer>
 
+    <script>
+        // Fonction pour changer de page
+        function afficherSection(id) {
+            document.getElementById('accueil').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        // Mise à jour Quittance
+        function majQ() {
+            document.getElementById('out_q_p').innerText = document.getElementById('q_proprio').value || '__________';
+            document.getElementById('out_q_l').innerText = document.getElementById('q_locataire').value || '__________';
+            document.getElementById('out_q_mo').innerText = document.getElementById('q_mois').value || '__________';
+            document.getElementById('out_q_m').innerText = document.getElementById('q_montant').value || '0';
+        }
+
+        // Mise à jour Attestation
+        function majA() {
+            document.getElementById('out_a_hr').innerText = document.getElementById('a_hebergeur').value || '__________';
+            document.getElementById('out_a_he').innerText = document.getElementById('a_heberge').value || '__________';
+        }
+    </script>
 </body>
 </html>
