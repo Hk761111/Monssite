@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        @media print { .no-print { display: none !important; } #papier { border: none !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; } }
+        @media print { .no-print { display: none !important; } #papier { border: none !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; display: block !important; } }
         .hidden { display: none; }
     </style>
 </head>
@@ -16,39 +16,92 @@
 
     <nav class="no-print bg-white border-b border-slate-200 py-4 px-6 flex justify-between items-center">
         <h1 class="text-2xl font-extrabold tracking-tighter text-blue-700 italic">DOCUVITE</h1>
-        <div class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Service Officiel</div>
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Service Certifié 2026</div>
     </nav>
 
     <div id="accueil" class="no-print max-w-5xl mx-auto py-12 px-4">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-slate-800">De quel document avez-vous besoin ?</h2>
-            <p class="text-slate-500 mt-2">Générez vos documents légaux en quelques clics.</p>
+            <h2 class="text-3xl font-bold text-slate-800">Générez vos documents légaux</h2>
+            <p class="text-slate-500 mt-2">Simple. Rapide. Conforme.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer" onclick="ouvrirQuittance()">
                 <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-6 text-2xl">🏠</div>
                 <h3 class="text-xl font-bold">Quittance de Loyer</h3>
-                <p class="text-slate-500 mt-2 text-sm leading-relaxed">Modèle gratuit conforme à la Loi Alur. Idéal pour bailleurs particuliers.</p>
-                <div class="mt-6 text-blue-600 font-bold flex items-center text-sm">Générer gratuitement →</div>
+                <p class="text-slate-500 mt-2 text-sm leading-relaxed">Modèle Loi Alur gratuit. Idéal pour bailleurs particuliers.</p>
+                <div class="mt-6 text-blue-600 font-bold text-sm">Générer gratuitement →</div>
             </div>
 
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition relative overflow-hidden border-t-4 border-t-orange-500">
-                <div class="absolute top-4 right-4 bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-1 rounded">PAYANT</div>
+                <div class="absolute top-4 right-4 bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-1 rounded">PROPRIÉTÉ</div>
                 <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center mb-6 text-2xl">✍️</div>
                 <h3 class="text-xl font-bold">Contrat de Vente Occasion</h3>
-                <p class="text-slate-500 mt-2 text-sm leading-relaxed mb-6">Protégez votre vente entre particuliers (véhicule, mobilier, etc.).</p>
+                <p class="text-slate-500 mt-2 text-sm leading-relaxed mb-6">Sécurisez votre vente entre particuliers (Véhicule, meubles...).</p>
                 <a href="preview.html" class="block text-center w-full py-4 bg-slate-900 text-white rounded-xl font-bold shadow-lg hover:bg-slate-800 transition">Voir le modèle (5,90€)</a>
             </div>
         </div>
     </div>
 
     <div id="generateur" class="hidden no-print max-w-4xl mx-auto py-8 px-4">
+        <button onclick="retourAccueil()" class="text-sm font-bold text-slate-400 mb-6 hover:text-blue-600 uppercase tracking-widest">← Menu principal</button>
+        
+        <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 mb-10">
+            <h2 class="text-2xl font-bold mb-8">Informations de la quittance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" id="p_nom" oninput="maj()" placeholder="Nom du Propriétaire" class="p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="p_adresse" oninput="maj()" placeholder="Adresse du Propriétaire" class="p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="l_nom" oninput="maj()" placeholder="Nom du Locataire" class="p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="bien" oninput="maj()" placeholder="Adresse du bien loué" class="p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 md:col-span-2">
+                <input type="text" id="periode" oninput="maj()" placeholder="Période (ex: Février 2026)" class="p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="number" id="loyer" oninput="maj()" placeholder="Loyer HC (€)" class="p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="number" id="charges" oninput="maj()" placeholder="Charges (€)" class="p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button onclick="window.print()" id="btn-print" class="hidden w-full mt-8 bg-blue-600 text-white py-5 rounded-2xl font-black shadow-lg hover:bg-blue-700 transition uppercase tracking-tighter">Imprimer en PDF</button>
         </div>
+    </div>
+
+    <div id="papier" class="hidden max-w-[800px] mx-auto bg-white p-16 my-8 shadow-2xl border border-slate-100 text-slate-800">
+        <div class="flex justify-between items-start mb-12 text-sm">
+            <div><p class="font-bold text-blue-700 uppercase mb-1 italic">Bailleur</p><p id="out_p_nom" class="font-bold">__________</p><p id="out_p_adresse">__________</p></div>
+            <div class="text-right"><p class="font-bold text-slate-400 uppercase mb-1 italic">Locataire</p><p id="out_l_nom" class="font-bold">__________</p></div>
+        </div>
+        <h2 class="text-3xl font-black text-center border-y-4 border-slate-900 py-4 mb-12">QUITTANCE DE LOYER</h2>
+        <p class="leading-relaxed mb-8">Le bailleur certifie avoir reçu de <strong>M./Mme <span id="out_l_nom2">__________</span></strong>, la somme totale de <strong class="text-xl underline"><span id="out_total">0.00</span> €</strong>, pour le loyer et les charges du bien situé au <strong><span id="out_bien">__________</span></strong>, pour la période de <strong><span id="out_periode">__________</span></strong>.</p>
+        <table class="w-full border-collapse mb-12">
+            <tr class="bg-slate-50 border"><td class="p-4 italic">Loyer hors charges</td><td id="out_loyer" class="p-4 text-right font-mono">0.00 €</td></tr>
+            <tr class="border"><td class="p-4 italic">Provisions pour charges</td><td id="out_charges" class="p-4 text-right font-mono">0.00 €</td></tr>
+            <tr class="bg-slate-900 text-white font-bold"><td class="p-4 text-lg">TOTAL REÇU</td><td id="out_total_tab" class="p-4 text-right text-2xl font-mono italic">0.00 €</td></tr>
+        </table>
+        <p class="text-[9px] text-slate-400 text-justify mb-20 leading-tight uppercase">Cette quittance libère le locataire pour la période indiquée. En cas de paiement par chèque, la quittance n'est valable que sous réserve de l'encaissement effectif du chèque. Mentions conformes à l'article 21 de la loi n° 89-462 du 6 juillet 1989.</p>
+        <div class="flex justify-end"><div class="text-center border-t border-slate-200 pt-4 w-64"><p id="date_jour" class="text-xs text-slate-400 italic mb-2"></p><p class="font-bold uppercase tracking-widest text-sm">Signature</p></div></div>
+    </div>
 
     <script>
-        function ouvrirQuittance() { document.getElementById('accueil').classList.add('hidden'); document.getElementById('generateur').classList.remove('hidden'); window.scrollTo(0,0); }
-        function retourAccueil() { document.getElementById('generateur').classList.add('hidden'); document.getElementById('accueil').classList.remove('hidden'); }
+        function ouvrirQuittance() { document.getElementById('accueil').classList.add('hidden'); document.getElementById('generateur').classList.remove('hidden'); }
+        function retourAccueil() { document.getElementById('generateur').classList.add('hidden'); document.getElementById('accueil').classList.add('hidden'); document.getElementById('accueil').classList.remove('hidden'); }
+        function maj() {
+            const l = parseFloat(document.getElementById('loyer').value) || 0;
+            const c = parseFloat(document.getElementById('charges').value) || 0;
+            const total = l + c;
+            
+            if(total > 0 || document.getElementById('p_nom').value != "") {
+                document.getElementById('papier').classList.remove('hidden');
+                document.getElementById('btn-print').classList.remove('hidden');
+            }
+
+            document.getElementById('out_p_nom').innerText = document.getElementById('p_nom').value || '__________';
+            document.getElementById('out_p_adresse').innerText = document.getElementById('p_adresse').value || '__________';
+            document.getElementById('out_l_nom').innerText = document.getElementById('l_nom').value || '__________';
+            document.getElementById('out_l_nom2').innerText = document.getElementById('l_nom').value || '__________';
+            document.getElementById('out_bien').innerText = document.getElementById('bien').value || '__________';
+            document.getElementById('out_periode').innerText = document.getElementById('periode').value || '__________';
+            document.getElementById('out_loyer').innerText = l.toFixed(2) + ' €';
+            document.getElementById('out_charges').innerText = c.toFixed(2) + ' €';
+            document.getElementById('out_total').innerText = total.toFixed(2);
+            document.getElementById('out_total_tab').innerText = total.toFixed(2) + ' €';
+            document.getElementById('date_jour').innerText = "Fait le " + new Date().toLocaleDateString('fr-FR');
+        }
     </script>
 </body>
 </html>
