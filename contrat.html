@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrat de Vente Officiel | DocuVite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        @media print { 
+            .no-print { display: none !important; } 
+            #document { border: none !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="no-print max-w-4xl mx-auto mb-8 bg-slate-900 text-white p-6 rounded-2xl flex justify-between items-center shadow-2xl">
+        <div>
+            <h1 class="font-bold text-lg text-orange-400">Merci pour votre achat !</h1>
+            <p class="text-xs text-slate-400">Remplissez les champs restants et imprimez votre contrat.</p>
+        </div>
+        <button onclick="window.print()" class="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-xl font-black transition">IMPRIMER (2 EXEMPLAIRES)</button>
+    </div>
+
+    <div id="document" class="max-w-4xl mx-auto bg-white p-12 shadow-sm border border-slate-200 text-slate-900 text-sm leading-relaxed">
+        
+        <div class="text-center mb-10">
+            <h2 class="text-2xl font-black uppercase tracking-tighter border-b-4 border-slate-900 inline-block pb-2">Contrat de Vente Sous Seing Privé</h2>
+            <p class="mt-4 text-slate-500 italic text-xs text-center">Conforme aux articles 1582 et suivants du Code Civil</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-10 mb-10">
+            <div class="p-4 bg-slate-50 rounded-lg">
+                <h3 class="font-bold border-b mb-3 uppercase text-xs text-slate-400">Le Vendeur</h3>
+                <input type="text" placeholder="Nom et Prénom" class="w-full bg-transparent border-b border-slate-300 outline-none mb-2 font-bold">
+                <input type="text" placeholder="Adresse complète" class="w-full bg-transparent border-b border-slate-300 outline-none mb-2">
+                <input type="text" placeholder="N° de téléphone" class="w-full bg-transparent border-b border-slate-300 outline-none">
+            </div>
+            <div class="p-4 bg-slate-50 rounded-lg">
+                <h3 class="font-bold border-b mb-3 uppercase text-xs text-slate-400">L'Acheteur</h3>
+                <input type="text" placeholder="Nom et Prénom" class="w-full bg-transparent border-b border-slate-300 outline-none mb-2 font-bold">
+                <input type="text" placeholder="Adresse complète" class="w-full bg-transparent border-b border-slate-300 outline-none mb-2">
+                <input type="text" placeholder="N° de téléphone" class="w-full bg-transparent border-b border-slate-300 outline-none">
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <section>
+                <h4 class="font-bold underline uppercase mb-2">Article 1 : Objet de la vente</h4>
+                <p>Le vendeur cède par les présentes à l'acheteur, qui accepte, l'objet désigné ci-après :</p>
+                <textarea placeholder="Description détaillée du bien (Marque, modèle, état, N° de série, etc.)" class="w-full mt-2 p-3 bg-slate-50 border border-dotted border-slate-400 rounded outline-none h-24"></textarea>
+            </section>
+
+            <section>
+                <h4 class="font-bold underline uppercase mb-2">Article 2 : Prix et Paiement</h4>
+                <p>La présente vente est consentie et acceptée moyennant le prix de : 
+                    <input type="text" placeholder="Montant en euros" class="border-b border-slate-300 outline-none font-bold mx-2"> €.
+                </p>
+                <p class="mt-2 text-xs">Le paiement a été effectué ce jour par : 
+                    <span class="mx-2 font-bold italic text-slate-400">[ ] Espèces [ ] Virement [ ] Chèque de banque</span>
+                </p>
+            </section>
+
+            <section>
+                <h4 class="font-bold underline uppercase mb-2">Article 3 : État du bien et Garanties</h4>
+                <p>L'acheteur déclare avoir examiné l'objet en détail et l'accepte dans l'état où il se trouve au moment de la livraison. Le vendeur déclare que le bien n'est grevé d'aucun gage, ni aucune opposition à la vente.</p>
+            </section>
+
+            <section>
+                <h4 class="font-bold underline uppercase mb-2">Article 4 : Transfert de propriété</h4>
+                <p>Le transfert de propriété et des risques s'opère dès la signature du présent contrat. L'acheteur devient responsable du bien et de son usage à compter de cette date.</p>
+            </section>
+        </div>
+
+        <div class="mt-20 grid grid-cols-2 gap-20">
+            <div class="text-center pt-10 border-t border-slate-300">
+                <p class="font-bold uppercase tracking-widest text-xs">Signature du Vendeur</p>
+                <p class="text-[10px] text-slate-400 mt-1 italic">Précédé de la mention "Lu et approuvé"</p>
+            </div>
+            <div class="text-center pt-10 border-t border-slate-300">
+                <p class="font-bold uppercase tracking-widest text-xs">Signature de l'Acheteur</p>
+                <p class="text-[10px] text-slate-400 mt-1 italic">Précédé de la mention "Lu et approuvé"</p>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center text-[10px] text-slate-300">
+            Contrat généré via DocuVite.app - Document à conserver précieusement par les deux parties.
+        </div>
+    </div>
+</body>
+</html>
