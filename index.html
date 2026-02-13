@@ -23,26 +23,26 @@
         <div id="accueil" class="no-print max-w-6xl mx-auto py-12 px-4">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold italic uppercase tracking-tighter">Générateur de documents légaux</h2>
-                <p class="text-slate-500 mt-2">Documents complets prêts à l'emploi.</p>
+                <p class="text-slate-500 mt-2 font-medium">Simple. Rapide. Conforme.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div onclick="afficherSection('section-quittance')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:border-blue-500 transition">
                     <div class="text-3xl mb-4">🏠</div>
                     <h3 class="font-bold uppercase italic">Quittance de Loyer</h3>
-                    <p class="text-slate-500 mt-2 text-xs italic italic">Avec détail des charges.</p>
+                    <p class="text-slate-500 mt-2 text-xs italic">Avec détail des charges.</p>
                 </div>
 
                 <div onclick="afficherSection('section-attestation')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:border-blue-500 transition">
                     <div class="text-3xl mb-4">📄</div>
                     <h3 class="font-bold uppercase italic">Attestation d'Hébergement</h3>
-                    <p class="text-slate-500 mt-2 text-xs italic italic">Modèle administratif complet.</p>
+                    <p class="text-slate-500 mt-2 text-xs italic">Modèle administratif complet.</p>
                 </div>
 
                 <a href="preview.html" class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-orange-500 border-x border-b border-slate-200">
                     <div class="text-3xl mb-4">✍️</div>
                     <h3 class="font-bold uppercase italic">Contrat de Vente</h3>
-                    <p class="text-slate-500 mt-2 text-xs italic italic">Vente sécurisée (Véhicule/Objet).</p>
+                    <p class="text-slate-500 mt-2 text-xs italic">Vente sécurisée (Véhicule/Objet).</p>
                     <div class="mt-4 text-orange-600 font-bold text-xs uppercase underline">Débloquer (4,90€)</div>
                 </a>
             </div>
@@ -52,50 +52,73 @@
             <button onclick="window.location.reload()" class="mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
             <div class="bg-white p-8 rounded-3xl shadow-xl border mb-6">
                 <h2 class="text-xl font-bold mb-6 italic uppercase">Détails de la Quittance</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="q_proprio" oninput="majQ()" placeholder="Nom & Adresse Propriétaire" class="p-4 bg-slate-50 rounded-xl border outline-none md:col-span-2">
-                    <input type="text" id="q_locataire" oninput="majQ()" placeholder="Nom du Locataire" class="p-4 bg-slate-50 rounded-xl border outline-none">
-                    <input type="text" id="q_adresse_bien" oninput="majQ()" placeholder="Adresse du logement loué" class="p-4 bg-slate-50 rounded-xl border outline-none">
-                    <input type="text" id="q_periode" oninput="majQ()" placeholder="Période (ex: du 01 au 31 Mars 2026)" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                
+                <h3 class="text-sm font-bold text-blue-600 uppercase mb-3 italic tracking-widest">Le Bailleur (Propriétaire)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <input type="text" id="q_p_nom" oninput="majQ()" placeholder="Nom et Prénom" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                    <input type="text" id="q_p_adr" oninput="majQ()" placeholder="Adresse complète" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                </div>
+
+                <h3 class="text-sm font-bold text-blue-600 uppercase mb-3 italic tracking-widest">Le Locataire</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <input type="text" id="q_l_nom" oninput="majQ()" placeholder="Nom et Prénom" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                    <input type="text" id="q_bien_adr" oninput="majQ()" placeholder="Adresse du logement loué" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                </div>
+
+                <h3 class="text-sm font-bold text-blue-600 uppercase mb-3 italic tracking-widest">Finances et Période</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="q_periode" oninput="majQ()" placeholder="Période (Mois 2026)" class="p-4 bg-slate-50 rounded-xl border outline-none">
                     <input type="number" id="q_loyer" oninput="majQ()" placeholder="Loyer Nu (€)" class="p-4 bg-slate-50 rounded-xl border outline-none">
                     <input type="number" id="q_charges" oninput="majQ()" placeholder="Charges (€)" class="p-4 bg-slate-50 rounded-xl border outline-none">
                 </div>
-                <button onclick="window.print()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold uppercase italic shadow-lg">Imprimer</button>
+                
+                <button onclick="window.print()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold uppercase italic shadow-lg hover:bg-blue-700 transition">Imprimer la Quittance</button>
             </div>
+
             <div id="papier" class="bg-white p-12 border text-[12px] leading-relaxed text-slate-800">
-                <div class="text-center mb-8"><h2 class="text-xl font-black underline uppercase italic">Quittance de Loyer</h2></div>
-                <p><strong>Bailleur :</strong> <span id="out_q_p">__________</span></p>
-                <p><strong>Locataire :</strong> <span id="out_q_l">__________</span></p>
-                <p class="mt-4">Le bailleur certifie avoir reçu la somme totale de <strong><span id="out_q_total">0</span> €</strong> pour le logement situé au <span id="out_q_adr">__________</span>, décomposée comme suit :</p>
-                <ul class="ml-10 mt-2">
-                    <li>- Loyer nu : <span id="out_q_loyer">0</span> €</li>
-                    <li>- Provisions pour charges : <span id="out_q_charges">0</span> €</li>
-                </ul>
-                <p class="mt-4">Cette somme correspond à la période du <strong><span id="out_q_per">__________</span></strong>.</p>
-                <p class="mt-10 text-[8px] text-slate-400 italic">Modèle DocuVite - Conforme loi n°89-462 du 6 juillet 1989.</p>
+                <div class="text-center mb-8 border-b-2 border-black pb-4">
+                    <h2 class="text-2xl font-black uppercase italic tracking-tighter">Quittance de Loyer</h2>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-10 mb-8">
+                    <div>
+                        <p class="font-bold text-blue-700 uppercase text-[10px] mb-1">Bailleur</p>
+                        <p class="font-bold"><span id="out_p_nom">__________</span></p>
+                        <p><span id="out_p_adr">__________</span></p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-slate-400 uppercase text-[10px] mb-1">Locataire</p>
+                        <p class="font-bold"><span id="out_l_nom">__________</span></p>
+                    </div>
+                </div>
+
+                <p class="mb-6 italic">Le bailleur certifie avoir reçu la somme totale de <strong><span id="out_total">0.00</span> €</strong> pour le logement situé au :<br>
+                <span class="font-bold" id="out_bien">__________</span></p>
+
+                <div class="bg-slate-50 p-4 rounded border border-slate-200 mb-6">
+                    <p class="font-bold mb-2">Détail du règlement :</p>
+                    <ul class="space-y-1">
+                        <li>- Loyer nu : <span id="out_loyer">0.00</span> €</li>
+                        <li>- Provisions pour charges : <span id="out_charges">0.00</span> €</li>
+                        <li class="pt-2 border-t font-bold italic">Total reçu pour la période du <span id="out_per">__________</span>.</li>
+                    </ul>
+                </div>
+
+                <p class="mb-10 text-justify">Cette quittance annule tout reçu relatif à la même période et ne peut servir de preuve de paiement pour les mois antérieurs. Le paiement de la présente quittance n'emporte pas présomption de paiement des termes précédents.</p>
+
+                <div class="text-right mt-10">
+                    <p>Fait à ................................., le .................................</p>
+                    <p class="mt-4 font-bold uppercase">Signature du bailleur</p>
+                    <div class="h-20"></div>
+                </div>
+
+                <p class="mt-10 text-[8px] text-slate-400 italic text-center border-t pt-4">Modèle DocuVite - Conforme loi n°89-462 du 6 juillet 1989. Pas un conseil juridique.</p>
             </div>
         </div>
 
         <div id="section-attestation" class="hidden no-print max-w-4xl mx-auto py-8 px-4">
-            <button onclick="window.location.reload()" class="mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
-            <div class="bg-white p-8 rounded-3xl shadow-xl border mb-6">
-                <h2 class="text-xl font-bold mb-6 italic uppercase">Détails de l'Attestation</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="a_nom" oninput="majA()" placeholder="Votre Nom et Prénom" class="p-4 bg-slate-50 rounded-xl border outline-none">
-                    <input type="text" id="a_adresse" oninput="majA()" placeholder="Votre Adresse complète" class="p-4 bg-slate-50 rounded-xl border outline-none">
-                    <input type="text" id="a_nom_he" oninput="majA()" placeholder="Nom de l'hébergé" class="p-4 bg-slate-50 rounded-xl border outline-none">
-                    <input type="text" id="a_naissance" oninput="majA()" placeholder="Né(e) le... à..." class="p-4 bg-slate-50 rounded-xl border outline-none">
-                </div>
-                <button onclick="window.print()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold uppercase italic shadow-lg">Imprimer</button>
-            </div>
-            <div id="papier-attest" class="bg-white p-12 border text-[13px] leading-loose text-slate-800 italic">
-                <h2 class="text-center text-xl font-black underline uppercase mb-10 italic">Attestation d'Hébergement</h2>
-                <p>Je soussigné(e) <strong>M./Mme <span id="out_a_n">__________</span></strong>, demeurant au <strong><span id="out_a_adr">__________</span></strong>, certifie sur l'honneur que :</p>
-                <p class="mt-4"><strong>M./Mme <span id="out_a_he">__________</span></strong>, né(e) le <span id="out_a_nai">__________</span>, est hébergé(e) à mon domicile à titre gratuit.</p>
-                <p class="mt-4">Fait pour servir et valoir ce que de droit.</p>
-                <p class="mt-20 text-[8px] text-slate-400 italic italic">DocuVite - Modèle standard pas un conseil juridique.</p>
-            </div>
-        </div>
+             <button onclick="window.location.reload()" class="mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
+             </div>
     </main>
 
     <script>
@@ -104,22 +127,19 @@
             document.getElementById(id).classList.remove('hidden');
             window.scrollTo(0,0);
         }
+
         function majQ() {
             const l = parseFloat(document.getElementById('q_loyer').value) || 0;
             const c = parseFloat(document.getElementById('q_charges').value) || 0;
-            document.getElementById('out_q_p').innerText = document.getElementById('q_proprio').value || '__________';
-            document.getElementById('out_q_l').innerText = document.getElementById('q_locataire').value || '__________';
-            document.getElementById('out_q_adr').innerText = document.getElementById('q_adresse_bien').value || '__________';
-            document.getElementById('out_q_per').innerText = document.getElementById('q_periode').value || '__________';
-            document.getElementById('out_q_loyer').innerText = l;
-            document.getElementById('out_q_charges').innerText = c;
-            document.getElementById('out_q_total').innerText = (l + c).toFixed(2);
-        }
-        function majA() {
-            document.getElementById('out_a_n').innerText = document.getElementById('a_nom').value || '__________';
-            document.getElementById('out_a_adr').innerText = document.getElementById('a_adresse').value || '__________';
-            document.getElementById('out_a_he').innerText = document.getElementById('a_nom_he').value || '__________';
-            document.getElementById('out_a_nai').innerText = document.getElementById('a_naissance').value || '__________';
+            
+            document.getElementById('out_p_nom').innerText = document.getElementById('q_p_nom').value || '__________';
+            document.getElementById('out_p_adr').innerText = document.getElementById('q_p_adr').value || '__________';
+            document.getElementById('out_l_nom').innerText = document.getElementById('q_l_nom').value || '__________';
+            document.getElementById('out_bien').innerText = document.getElementById('q_bien_adr').value || '__________';
+            document.getElementById('out_per').innerText = document.getElementById('q_periode').value || '__________';
+            document.getElementById('out_loyer').innerText = l.toFixed(2);
+            document.getElementById('out_charges').innerText = c.toFixed(2);
+            document.getElementById('out_total').innerText = (l + c).toFixed(2);
         }
     </script>
 </body>
