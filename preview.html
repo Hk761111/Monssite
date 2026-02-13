@@ -8,76 +8,110 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
-        /* Flou léger uniquement sur le bas */
-        .blur-bottom { filter: blur(2px); mask-image: linear-gradient(to bottom, black 30%, transparent 90%); pointer-events: none; }
+        
+        /* Désactive la sélection de texte et le clic droit */
+        .no-copy { user-select: none; -webkit-user-select: none; }
+
+        /* Style du Filigrane en arrière-plan */
+        .watermark-container { position: relative; overflow: hidden; }
+        .watermark-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 80px;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.05);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            text-transform: uppercase;
+        }
+
+        /* PROTECTION ANTI-IMPRESSION : Affiche un gros message noir si on essaie d'imprimer l'aperçu */
+        @media print {
+            body * { display: none !important; }
+            body::before {
+                content: "CET APERÇU N'EST PAS IMPRIMABLE. VEUILLEZ DÉBLOQUER LE DOCUMENT SUR DOCUVITE POUR OBTENIR LA VERSION OFFICIELLE.";
+                display: block;
+                padding: 50px;
+                font-size: 24px;
+                font-weight: bold;
+                text-align: center;
+                color: black;
+            }
+        }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-4 md:p-10 no-copy" oncontextmenu="return false;">
 
     <div class="max-w-3xl mx-auto mb-8 bg-slate-900 text-white p-6 rounded-3xl shadow-2xl flex flex-col md:flex-row justify-between items-center gap-4 border-b-4 border-orange-500">
         <div>
-            <h2 class="text-xl font-black uppercase italic tracking-tighter">Modèle Premium Complet</h2>
-            <p class="text-xs text-slate-400 italic">Heure de vente, KM, Décharge de responsabilité...</p>
+            <h2 class="text-xl font-black uppercase italic tracking-tighter">Modèle Complet Disponible</h2>
+            <p class="text-xs text-slate-400 italic">Version modifiable et imprimable immédiatement.</p>
         </div>
-        <a href="https://buy.stripe.com/4gM28r8ymgiR0o3f1MenS01" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-2xl font-black text-sm transition uppercase shadow-lg text-center">Acheter (4,90€)</a>
+        <a href="https://buy.stripe.com/4gM28r8ymgiR0o3f1MenS01" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-2xl font-black text-sm transition uppercase shadow-lg text-center">Acheter le modèle (4,90€)</a>
     </div>
 
-    <div class="max-w-[800px] mx-auto bg-white p-10 shadow-sm border border-slate-200 text-slate-900 text-[11px] leading-tight relative rounded-sm overflow-hidden">
+    <div class="max-w-[800px] mx-auto bg-white p-10 shadow-sm border border-slate-200 text-slate-900 text-[11px] leading-tight relative watermark-container rounded-sm">
         
-        <div class="text-center mb-6">
-            <h2 class="text-xl font-black uppercase border-b-2 border-black inline-block pb-1 italic">Contrat de Vente d'Occasion</h2>
-            <p class="text-[9px] text-slate-400 mt-1 italic">Certifié Conforme Code Civil 2026</p>
-        </div>
+        <div class="watermark-text">DOCUVITE APERÇU</div>
 
-        <div class="grid grid-cols-2 gap-6 mb-6">
-            <div class="p-3 bg-slate-50 border rounded-xl border-blue-100">
-                <p class="font-bold text-[9px] uppercase text-blue-600 mb-1 italic italic">Le Vendeur</p>
-                <div class="text-[10px] font-bold text-slate-400 border-b border-dotted">NOM & PRÉNOM (À REMPLIR)</div>
-                <div class="text-[9px] text-slate-300 mt-2">ADRESSE DU DOMICILE...</div>
+        <div class="relative z-10">
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-black uppercase border-b-2 border-black inline-block pb-1 italic">Contrat de Vente d'Occasion</h2>
+                <p class="text-[9px] text-slate-400 mt-1 italic">Certifié Conforme Code Civil 2026</p>
             </div>
-            <div class="p-3 bg-slate-50 border rounded-xl">
-                <p class="font-bold text-[9px] uppercase text-slate-400 mb-1 italic italic">L'Acheteur</p>
-                <div class="text-[10px] font-bold text-slate-400 border-b border-dotted">NOM & PRÉNOM (À REMPLIR)</div>
-                <div class="text-[9px] text-slate-300 mt-2">ADRESSE DU DOMICILE...</div>
-            </div>
-        </div>
 
-        <div class="blur-bottom">
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div class="p-3 bg-slate-50 border rounded-xl border-blue-100">
+                    <p class="font-bold text-[9px] uppercase text-blue-600 mb-1 italic">Le Vendeur</p>
+                    <p class="text-slate-400 border-b border-dotted pb-1">Nom et Prénom du vendeur...</p>
+                    <p class="text-slate-300 mt-2">Adresse du domicile...</p>
+                </div>
+                <div class="p-3 bg-slate-50 border rounded-xl">
+                    <p class="font-bold text-[9px] uppercase text-slate-400 mb-1 italic">L'Acheteur</p>
+                    <p class="text-slate-400 border-b border-dotted pb-1">Nom et Prénom de l'acheteur...</p>
+                    <p class="text-slate-300 mt-2">Adresse du domicile...</p>
+                </div>
+            </div>
+
             <div class="space-y-4">
                 <div>
                     <p class="font-bold underline text-[10px] uppercase italic">Article 1. Objet de la vente :</p>
-                    <p class="text-slate-400">Désignation du bien, Marque, Modèle, Kilométrage, N° de série...</p>
-                    <div class="h-10 border-b border-dotted"></div>
+                    <p class="text-slate-500 leading-relaxed italic">Désignation précise du bien (Marque, Modèle, Kilométrage, N° de série, État général). Cette section permet de protéger le vendeur contre les vices cachés.</p>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="font-bold underline text-[10px] uppercase italic">Article 2. Prix & Règlement :</p>
-                        <p class="text-slate-400 italic italic">Prix ferme en euros...</p>
+                        <p class="text-slate-500 italic">Prix ferme en euros, précisant le mode de paiement sécurisé.</p>
                     </div>
                     <div>
                         <p class="font-bold underline text-[10px] uppercase italic">Article 3. Date & Heure :</p>
-                        <p class="text-slate-400 italic italic">Précision à la minute près...</p>
+                        <p class="text-slate-500 italic">Heure précise (HH:MM) pour la protection contre les PV.</p>
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <p class="font-bold underline text-[10px] uppercase italic">Article 4. État & Garanties :</p>
-                    <p class="text-slate-400 text-justify text-[9px]">Le vendeur garantit l'absence de gage. L'acheteur accepte le bien en l'état. Décharge totale de responsabilité après signature...</p>
+                    <p class="text-slate-600 text-justify text-[9px] leading-snug">
+                        Le vendeur garantit que le bien est libre de tout gage. L'acheteur reconnaît avoir essayé le bien et l'accepte en l'état. Le transfert de propriété et des risques s'effectue dès la signature, déchargeant le vendeur de toute responsabilité.
+                    </p>
                 </div>
             </div>
-        </div>
 
-        <div class="absolute bottom-10 left-0 right-0 flex justify-center px-6">
-            <div class="bg-white p-6 rounded-2xl border-2 border-orange-500 shadow-2xl text-center max-w-sm">
-                <p class="font-black text-slate-800 uppercase italic text-sm tracking-tighter">Prêt à imprimer ?</p>
-                <p class="text-[10px] text-slate-500 my-2">Débloquez la version complète et modifiable immédiatement.</p>
-                <a href="https://buy.stripe.com/4gM28r8ymgiR0o3f1MenS01" class="block bg-slate-900 text-white py-2 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-orange-500 transition">Débloquer maintenant</a>
+            <div class="mt-12 grid grid-cols-2 gap-12 text-center opacity-50">
+                <div class="border-t border-slate-200 pt-2 font-bold uppercase text-[9px]">Signature Vendeur</div>
+                <div class="border-t border-slate-200 pt-2 font-bold uppercase text-[9px]">Signature Acheteur</div>
             </div>
         </div>
     </div>
 
-    <p class="text-center mt-8"><a href="index.html" class="text-xs font-bold text-slate-400 uppercase underline italic">Retour à l'accueil</a></p>
+    <div class="text-center mt-10 space-y-4">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest italic italic">Document protégé par le droit d'auteur</p>
+        <a href="index.html" class="inline-block text-xs font-bold text-blue-600 uppercase underline italic">Retour à l'accueil</a>
+    </div>
 
 </body>
 </html>
