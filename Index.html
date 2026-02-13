@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,127 +8,157 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        @media print { 
-            .no-print { display: none !important; } 
-            #papier, #papier-attest { display: block !important; border: none !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; } 
-        }
         .hidden { display: none; }
+        .blur-sm { filter: blur(4px); pointer-events: none; user-select: none; }
+
+        @media print {
+            .no-print, nav, footer, button, #accueil, .form-container { display: none !important; }
+            div:not(.hidden) > #papier, div:not(.hidden) > #papier-attest { 
+                display: block !important; width: 100% !important; border: none !important; color: black !important; padding: 10mm !important;
+            }
+            body { background: white !important; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
 
-    <nav class="no-print bg-white border-b border-slate-200 py-4 px-6 flex justify-between items-center shadow-sm">
-        <h1 class="text-2xl font-extrabold tracking-tighter text-blue-700 italic">DOCUVITE</h1>
-        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Service Certifié 2026</div>
+    <nav class="no-print bg-white border-b py-4 px-6 flex justify-between items-center shadow-sm">
+        <h1 class="text-2xl font-black text-blue-700 italic tracking-tighter">DOCUVITE</h1>
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Service Certifié 2026</div>
     </nav>
 
     <main class="flex-grow">
         <div id="accueil" class="no-print max-w-6xl mx-auto py-12 px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-800 italic uppercase tracking-tighter">Vos documents en 2 minutes</h2>
-                <p class="text-slate-500 mt-2 font-medium">Simple. Rapide. Conforme.</p>
+                <h2 class="text-3xl font-bold italic uppercase tracking-tighter">Générateur de documents</h2>
+                <p class="text-slate-500 mt-2 font-medium italic text-sm">Choisissez votre document ci-dessous.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer" onclick="ouvrirDoc('generateur')">
-                    <div class="text-3xl mb-4">🏠</div>
-                    <h3 class="text-lg font-bold">Quittance de Loyer</h3>
-                    <p class="text-slate-500 mt-2 text-xs leading-relaxed italic">Modèle Loi Alur gratuit pour bailleurs particuliers.</p>
-                    <div class="mt-4 text-blue-600 font-bold text-xs uppercase tracking-widest italic">Générer gratuitement →</div>
+                <div onclick="afficherSection('section-quittance')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:border-blue-500 transition group">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">🏠</div>
+                    <h3 class="font-bold uppercase italic tracking-tighter">Quittance de Loyer</h3>
+                    <p class="text-slate-500 mt-2 text-xs italic">Gratuit - Avec charges détaillées.</p>
+                    <div class="mt-4 text-blue-600 font-bold text-[10px] uppercase tracking-widest italic">Ouvrir →</div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition cursor-pointer" onclick="ouvrirDoc('gen-attest')">
-                    <div class="text-3xl mb-4">📄</div>
-                    <h3 class="text-lg font-bold">Attestation d'Hébergement</h3>
-                    <p class="text-slate-500 mt-2 text-xs leading-relaxed italic">Gratuit. Indispensable pour vos démarches administratives.</p>
-                    <div class="mt-4 text-blue-600 font-bold text-xs uppercase tracking-widest italic">Générer gratuitement →</div>
+                <div onclick="afficherSection('section-attestation')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:border-blue-500 transition group">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition">📄</div>
+                    <h3 class="font-bold uppercase italic tracking-tighter">Attestation d'Hébergement</h3>
+                    <p class="text-slate-500 mt-2 text-xs italic">Gratuit - Modèle officiel.</p>
+                    <div class="mt-4 text-blue-600 font-bold text-[10px] uppercase tracking-widest italic">Ouvrir →</div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition border-t-4 border-t-orange-500">
+                <div onclick="afficherSection('section-preview')" class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-orange-500 border-x border-b border-slate-200 cursor-pointer hover:shadow-lg transition">
                     <div class="text-3xl mb-4">✍️</div>
-                    <h3 class="text-lg font-bold italic uppercase tracking-tighter">Contrat de Vente</h3>
-                    <p class="text-slate-500 mt-2 text-xs leading-relaxed italic italic">Sécurisez votre vente d'occasion (véhicule, meubles...).</p>
-                    <a href="preview.html" class="mt-4 block text-center bg-slate-900 text-white py-3 rounded-xl font-bold text-sm hover:bg-slate-800 transition uppercase italic">Voir le modèle (4,90€)</a>
+                    <h3 class="font-bold uppercase italic tracking-tighter">Contrat de Vente</h3>
+                    <p class="text-slate-500 mt-2 text-xs italic">Modèle Premium (Véhicule/Objet).</p>
+                    <div class="mt-4 text-orange-600 font-bold text-[10px] uppercase tracking-widest italic underline">Voir l'aperçu (4,90€)</div>
                 </div>
             </div>
         </div>
 
-        <div id="generateur" class="hidden no-print max-w-4xl mx-auto py-8 px-4">
-            <button onclick="window.location.reload()" class="text-xs font-bold text-slate-400 mb-6 uppercase tracking-widest italic">← Retour</button>
-            <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 mb-10">
-                <h2 class="text-2xl font-bold mb-8 italic uppercase tracking-tighter">Infos Quittance</h2>
+        <div id="section-quittance" class="hidden max-w-4xl mx-auto py-8 px-4">
+            <button onclick="window.location.reload()" class="no-print mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
+            <div class="form-container no-print bg-white p-8 rounded-3xl shadow-xl border mb-10">
+                <h2 class="text-xl font-bold mb-6 italic uppercase">Infos Quittance</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="p_nom" oninput="maj()" placeholder="Propriétaire (Nom/Prénom)" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                    <input type="text" id="p_adresse" oninput="maj()" placeholder="Adresse du propriétaire" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                    <input type="text" id="l_nom" oninput="maj()" placeholder="Locataire (Nom/Prénom)" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                    <input type="text" id="bien" oninput="maj()" placeholder="Adresse du logement loué" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 md:col-span-2">
-                    <input type="text" id="periode" oninput="maj()" placeholder="Mois (ex: Mars 2026)" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                    <input type="number" id="loyer" oninput="maj()" placeholder="Loyer HC (€)" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                    <input type="number" id="charges" oninput="maj()" placeholder="Charges (€)" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" id="q_p_nom" oninput="majQ()" placeholder="Nom du Propriétaire" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                    <input type="text" id="q_l_nom" oninput="majQ()" placeholder="Nom du Locataire" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                    <input type="number" id="q_loyer" oninput="majQ()" placeholder="Loyer Hors Charges (€)" class="p-4 bg-slate-50 rounded-xl border outline-none">
+                    <input type="number" id="q_charges" oninput="majQ()" placeholder="Charges (€)" class="p-4 bg-slate-50 rounded-xl border outline-none">
                 </div>
-                <button onclick="window.print()" id="btn-print" class="hidden w-full mt-8 bg-blue-600 text-white py-5 rounded-2xl font-black shadow-lg hover:bg-blue-700 transition uppercase italic">Imprimer en PDF</button>
+                <button onclick="window.print()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold uppercase italic shadow-lg">Imprimer Gratuitement</button>
             </div>
-            <div id="papier" class="hidden max-w-[800px] mx-auto bg-white p-12 border text-slate-800">
-                <div class="flex justify-between items-start mb-8 text-xs italic">
-                    <div><p class="font-bold uppercase text-blue-700">Bailleur</p><p id="out_p_nom">__________</p><p id="out_p_adresse">__________</p></div>
-                    <div class="text-right"><p class="font-bold uppercase text-slate-400">Locataire</p><p id="out_l_nom">__________</p></div>
+            <div id="papier" class="bg-white p-12 border text-[12px] leading-relaxed text-slate-800">
+                <h2 class="text-center text-xl font-black underline uppercase mb-8 italic">Quittance de Loyer</h2>
+                <p>Propriétaire : <span id="out_p_nom" class="font-bold">__________</span></p>
+                <p>Locataire : <span id="out_l_nom" class="font-bold">__________</span></p>
+                <div class="mt-6 p-4 bg-slate-50 border rounded">
+                    <p>Loyer HC : <span id="out_loyer">0.00</span> €</p>
+                    <p>Charges : <span id="out_charges">0.00</span> €</p>
+                    <p class="font-bold text-lg border-t mt-2 pt-2 text-blue-700">TOTAL : <span id="out_total">0.00</span> €</p>
                 </div>
-                <h2 class="text-2xl font-black text-center border-y-2 border-slate-900 py-3 mb-8 uppercase italic tracking-tighter">Quittance de Loyer</h2>
-                <p class="text-sm leading-relaxed mb-8">Le bailleur certifie avoir reçu de <strong>M./Mme <span id="out_l_nom2">__________</span></strong>, la somme totale de <strong><span id="out_total">0.00</span> €</strong> pour le loyer et les charges du bien situé au <strong><span id="out_bien">__________</span></strong>, pour la période de <strong><span id="out_periode">__________</span></strong>.</p>
-                <p class="text-[9px] text-slate-400 mt-20 italic">Mentions légales : Article 21 de la loi n° 89-462 du 6 juillet 1989. Modèle standard DocuVite - Pas un conseil juridique.</p>
+                <p class="mt-10 text-[8px] text-slate-400 italic">© DocuVite 2026</p>
             </div>
         </div>
 
-        <div id="gen-attest" class="hidden no-print max-w-4xl mx-auto py-8 px-4">
-            <button onclick="window.location.reload()" class="text-xs font-bold text-slate-400 mb-6 uppercase tracking-widest italic">← Retour</button>
-            <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 mb-10">
-                <h2 class="text-2xl font-bold mb-8 italic uppercase tracking-tighter italic">Infos Attestation</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="h_nom" oninput="majA()" placeholder="Votre Nom et Prénom" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none">
-                    <input type="text" id="h_adresse" oninput="majA()" placeholder="Votre adresse complète" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none">
-                    <input type="text" id="l_nom_h" oninput="majA()" placeholder="Nom de l'hébergé" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none">
-                    <input type="text" id="depuis" oninput="majA()" placeholder="Hébergé depuis le (date)" class="p-4 bg-slate-50 border border-slate-100 rounded-xl outline-none">
-                </div>
-                <button onclick="window.print()" id="btn-print-a" class="hidden w-full mt-8 bg-blue-600 text-white py-5 rounded-2xl font-black shadow-lg italic">Imprimer en PDF</button>
+        <div id="section-preview" class="hidden max-w-4xl mx-auto py-8 px-4">
+            <button onclick="window.location.reload()" class="no-print mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
+            
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-black uppercase italic italic tracking-tighter">Aperçu du Contrat Premium</h2>
+                <p class="text-slate-500 text-sm">Le document complet sera débloqué après paiement.</p>
+                <a href="https://buy.stripe.com/TON_LIEN_ICI" class="inline-block mt-4 bg-orange-500 text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-xl shadow-orange-200 hover:scale-105 transition uppercase italic">Débloquer le document (4,90€)</a>
             </div>
-            <div id="papier-attest" class="hidden max-w-[800px] mx-auto bg-white p-16 border text-slate-800 leading-loose italic">
-                <h1 class="text-xl font-bold text-center underline mb-16 uppercase italic">Attestation d'Hébergement</h1>
-                <p>Je soussigné(e) <strong>M./Mme <span id="out_h_nom">__________</span></strong>, demeurant au <strong><span id="out_h_adresse">__________</span></strong>, certifie sur l'honneur que <strong>M./Mme <span id="out_l_nom_h">__________</span></strong> est hébergé(e) à mon domicile à titre gratuit depuis le <strong><span id="out_depuis">__________</span></strong>.</p>
-                <p class="text-[9px] text-slate-400 mt-20 italic">Note : Ce document est un modèle standard généré par DocuVite. Il ne remplace pas un conseil juridique.</p>
+
+            <div class="bg-white p-10 border shadow-2xl rounded-xl relative overflow-hidden">
+                <div class="blur-sm opacity-40">
+                    <h2 class="text-center text-xl font-black underline mb-6">CONTRAT DE VENTE D'OCCASION</h2>
+                    <div class="grid grid-cols-2 gap-4 mb-10">
+                        <div class="h-20 bg-slate-100 rounded"></div>
+                        <div class="h-20 bg-slate-100 rounded"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="h-4 bg-slate-100 rounded w-3/4"></div>
+                        <div class="h-4 bg-slate-100 rounded w-full"></div>
+                        <div class="h-4 bg-slate-100 rounded w-5/6"></div>
+                        <div class="h-10 bg-slate-100 rounded w-full"></div>
+                    </div>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center p-6 text-center">
+                    <div class="bg-white/90 p-6 rounded-2xl border shadow-lg max-w-xs">
+                        <p class="font-bold text-slate-800 italic">Ce document contient :</p>
+                        <ul class="text-[10px] text-left mt-2 space-y-1 text-slate-600 italic">
+                            <li>✅ Heure précise de la vente (PV)</li>
+                            <li>✅ Clause de décharge de responsabilité</li>
+                            <li>✅ Kilométrage et état certifié</li>
+                            <li>✅ Modèle conforme Code Civil 2026</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section-attestation" class="hidden max-w-4xl mx-auto py-8 px-4">
+            <button onclick="window.location.reload()" class="no-print mb-6 text-xs font-bold text-slate-400 uppercase italic">← Retour</button>
+            <div class="form-container no-print bg-white p-8 rounded-3xl shadow-xl border mb-10">
+                <input type="text" id="a_nom" oninput="majA()" placeholder="Votre Nom Prénom" class="w-full p-4 mb-2 bg-slate-50 border rounded-xl outline-none">
+                <input type="text" id="a_he" oninput="majA()" placeholder="Nom de l'hébergé" class="w-full p-4 mb-2 bg-slate-50 border rounded-xl outline-none">
+                <button onclick="window.print()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold uppercase italic">Imprimer Gratuitement</button>
+            </div>
+            <div id="papier-attest" class="bg-white p-12 border text-[13px] italic">
+                <h2 class="text-center text-xl font-black underline uppercase mb-10 italic">Attestation d'Hébergement</h2>
+                <p>Je soussigné <strong><span id="out_a_n">__________</span></strong> certifie héberger <strong><span id="out_a_he">__________</span></strong>.</p>
             </div>
         </div>
     </main>
 
-    <footer class="no-print py-10 bg-white border-t border-slate-100 text-center">
-        <a href="mentions.html" class="text-[10px] font-bold text-slate-400 hover:text-blue-600 uppercase tracking-widest italic">Mentions Légales & CGV</a>
-        <p class="text-[9px] text-slate-300 mt-2">© 2026 DocuVite - Tous droits réservés.</p>
+    <footer class="no-print py-10 text-center opacity-30">
+        <a href="mentions.html" class="text-[10px] uppercase font-bold underline italic">Mentions Légales</a>
     </footer>
 
     <script>
-        function ouvrirDoc(id) {
-            document.getElementById('accueil').style.display = 'none';
+        function afficherSection(id) {
+            document.getElementById('accueil').classList.add('hidden');
+            document.getElementById('section-quittance').classList.add('hidden');
+            document.getElementById('section-attestation').classList.add('hidden');
+            document.getElementById('section-preview').classList.add('hidden');
             document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
         }
-        function maj() {
-            const l = parseFloat(document.getElementById('loyer').value) || 0;
-            const c = parseFloat(document.getElementById('charges').value) || 0;
-            document.getElementById('papier').classList.remove('hidden');
-            document.getElementById('btn-print').classList.remove('hidden');
-            document.getElementById('out_p_nom').innerText = document.getElementById('p_nom').value || '__________';
-            document.getElementById('out_p_adresse').innerText = document.getElementById('p_adresse').value || '__________';
-            document.getElementById('out_l_nom').innerText = document.getElementById('l_nom').value || '__________';
-            document.getElementById('out_l_nom2').innerText = document.getElementById('l_nom').value || '__________';
-            document.getElementById('out_bien').innerText = document.getElementById('bien').value || '__________';
-            document.getElementById('out_periode').innerText = document.getElementById('periode').value || '__________';
+        function majQ() {
+            const l = parseFloat(document.getElementById('q_loyer').value) || 0;
+            const c = parseFloat(document.getElementById('q_charges').value) || 0;
+            document.getElementById('out_p_nom').innerText = document.getElementById('q_p_nom').value || '__________';
+            document.getElementById('out_l_nom').innerText = document.getElementById('q_l_nom').value || '__________';
+            document.getElementById('out_loyer').innerText = l.toFixed(2);
+            document.getElementById('out_charges').innerText = c.toFixed(2);
             document.getElementById('out_total').innerText = (l + c).toFixed(2);
         }
         function majA() {
-            document.getElementById('papier-attest').classList.remove('hidden');
-            document.getElementById('btn-print-a').classList.remove('hidden');
-            document.getElementById('out_h_nom').innerText = document.getElementById('h_nom').value || '__________';
-            document.getElementById('out_h_adresse').innerText = document.getElementById('h_adresse').value || '__________';
-            document.getElementById('out_l_nom_h').innerText = document.getElementById('l_nom_h').value || '__________';
-            document.getElementById('out_depuis').innerText = document.getElementById('depuis').value || '__________';
+            document.getElementById('out_a_n').innerText = document.getElementById('a_nom').value || '__________';
+            document.getElementById('out_a_he').innerText = document.getElementById('a_he').value || '__________';
         }
     </script>
 </body>
