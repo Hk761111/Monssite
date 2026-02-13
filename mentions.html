@@ -3,45 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentions Légales & CGV | DocuVite</title>
+    <title>Mentions Légales | DocuVite</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="bg-slate-50 text-slate-800 p-6 md:p-12 leading-relaxed">
-    <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-        <h1 class="text-3xl font-bold mb-8 border-b pb-4">Mentions Légales & CGV</h1>
+<body class="bg-slate-50 text-slate-800 p-6 md:p-20">
 
-        <section class="mb-8">
-            <h2 class="text-xl font-bold mb-3 text-blue-700 underline italic">1. Éditeur du site</h2>
-            <p>Le site <strong>DocuVite</strong> est édité par [Ton Nom/Prénom ou Nom de Société], domicilié à [Ton Adresse].</p>
-            <p>Hébergement : Netlify Inc., 44 Montgomery St, San Francisco, CA 94104, USA.</p>
-        </section>
+    <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-200">
+        <a href="index.html" class="text-blue-600 font-bold text-xs uppercase tracking-widest hover:underline">← Retour au site</a>
+        
+        <h1 class="text-3xl font-black mt-8 mb-10 italic uppercase tracking-tighter border-b-4 border-blue-600 inline-block">Mentions Légales</h1>
 
-        <section class="mb-8">
-            <h2 class="text-xl font-bold mb-3 text-blue-700 underline italic uppercase tracking-tighter">2. Clause de non-responsabilité (Avertissement)</h2>
-            <div class="bg-orange-50 border-l-4 border-orange-400 p-4 italic">
-                <strong>Important :</strong> DocuVite est un service de génération de modèles de documents standards. 
-                <strong>Nous ne sommes pas des avocats ni des conseillers juridiques.</strong> 
-                L'utilisation de nos modèles ne remplace en aucun cas un conseil juridique professionnel. L'utilisateur est seul responsable de la vérification de la conformité du document à sa situation spécifique.
-            </div>
-        </section>
+        <div class="space-y-8 text-sm leading-relaxed">
+            
+            <section>
+                <h2 class="font-bold text-slate-900 uppercase tracking-wide mb-2 italic">1. Édition du site</h2>
+                <p>Le site <strong>DocuVite</strong> (accessible à l'adresse https://hk761111.github.io/Monssite/) est une plateforme de génération de documents administratifs simplifiés.</p>
+                <p class="mt-2 text-slate-500 italic">Directeur de la publication : Équipe DocuVite.</p>
+            </section>
 
-        <section class="mb-8">
-            <h2 class="text-xl font-bold mb-3 text-blue-700 underline italic uppercase tracking-tighter">3. Conditions Générales de Vente (CGV)</h2>
-            <ul class="list-disc ml-5 space-y-2">
-                <li><strong>Prix :</strong> Le prix des documents payants est de 4,90€ TTC.</li>
-                <li><strong>Livraison :</strong> La livraison s'effectue par redirection immédiate vers le document après validation du paiement par Stripe.</li>
-                <li><strong>Droit de rétractation :</strong> Conformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne peut être exercé pour la fourniture de contenus numériques non fournis sur un support matériel dont l'exécution a commencé après accord préalable exprès du consommateur. <strong>En achetant le document, vous renoncez à votre droit de rétractation.</strong></li>
-            </ul>
-        </section>
+            <section>
+                <h2 class="font-bold text-slate-900 uppercase tracking-wide mb-2 italic">2. Hébergement</h2>
+                <p>Le site est hébergé par la société <strong>GitHub Inc.</strong></p>
+                <p class="text-slate-500">Adresse : 88 Colin P. Kelly Jr St, San Francisco, CA 94107, États-Unis.</p>
+            </section>
 
-        <section class="mb-8">
-            <h2 class="text-xl font-bold mb-3 text-blue-700 underline italic uppercase tracking-tighter font-center">4. Données personnelles</h2>
-            <p>Les données saisies dans les formulaires sont utilisées uniquement pour générer votre document. DocuVite ne stocke aucune donnée personnelle saisie dans les contrats.</p>
+            <section>
+                <h2 class="font-bold text-slate-900 uppercase tracking-wide mb-2 italic">3. Responsabilité</h2>
+                <p>DocuVite propose des modèles de documents à titre indicatif. L'utilisation de ces modèles ne remplace en aucun cas le conseil d'un professionnel du droit (avocat, notaire).</p>
+                <p class="mt-2 font-semibold">L'utilisateur est seul responsable du contenu qu'il saisit dans les formulaires et de l'usage qu'il fait des documents générés.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold text-slate-900 uppercase tracking-wide mb-2 italic">4. Protection des données</h2>
+                <p>Le site DocuVite ne stocke aucune donnée saisie dans les formulaires sur ses serveurs. Le traitement des données se fait localement dans le navigateur de l'utilisateur.</p>
+                <p class="mt-2 text-slate-500 italic">Les paiements sont sécurisés et gérés exclusivement par la plateforme Stripe.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold text-slate-900 uppercase tracking-wide mb-2 italic">5. Propriété intellectuelle</h2>
+                <p>La structure du site, les logos et les textes propres à DocuVite sont la propriété exclusive de l'équipe DocuVite. Toute reproduction sans autorisation est interdite.</p>
+            </section>
+
         </div>
 
-        <div class="mt-10 text-center">
-            <a href="index.html" class="text-blue-600 font-bold">← Retour au site</a>
+        <div class="mt-16 pt-8 border-t text-center">
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">DocuVite © 2026 - Tous droits réservés</p>
         </div>
     </div>
+
 </body>
 </html>
